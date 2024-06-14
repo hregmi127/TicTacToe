@@ -39,18 +39,23 @@ const enableBoxes=()=>{
   }
 
 
-boxes.forEach((box)=>{ count =0;
+boxes.forEach((box)=>{coun=0;
     box.addEventListener("click",()=>{
-        count =count+1;
         if(turnO===true){
-        box.innerText = "O"
-        turnO = false;
+          box.classList.add("color");
+          box.innerText = "O"
+          turnO = false;
         } else{
+            box.classList.remove("color");
             box.innerText = "X";
             turnO=true;
         }
         box.disabled = true;  
-        checkWinner() ;       
+        count+=1;
+        // checkWinner();
+        let isWinner = checkWinner() ;  
+        if(count===9 && !isWinner){draw();}
+
     })
   })
 
@@ -74,10 +79,10 @@ boxes.forEach((box)=>{ count =0;
             if(pos1Val === pos2Val && pos2Val === pos3Val) {              
                 disableBoxes();
                 showWinner(pos1Val); 
-                return;
+                return true;
                 } 
-                else if(count===9){
-                  draw();};
+                // else if(count===9){
+                //   draw();};
             }
           } 
         }   
